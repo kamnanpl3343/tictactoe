@@ -1,24 +1,29 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
-
+import Board from './components/Board';
 function App() {
+
+  const[items, setItems] = useState (Array(9).fill(null));
+  const [isXPlaying, setIsXPlaying]= useState(true);
+
+  const handleClick = (boxInd) => {
+{
+ const updatedBoard = items.map((curElem,ind) => {
+if (ind===boxInd){
+return isXPlaying === true ? "X" : "O";
+}
+else {
+  return curElem;
+}
+  })
+  setItems(updatedBoard);
+  setIsXPlaying(!isXPlaying);
+}
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+<>
+<Board item={items} onClick={handleClick}/>
+</>
   );
 }
 
